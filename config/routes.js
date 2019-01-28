@@ -41,13 +41,9 @@ function register(req, res) {
     db("users").insert(user)
       .then(ids => {
         const id = ids[0];
-        console.log(id)
         db("users").where("id", id).then(user => {
-          console.log("user", user.length)
           if(user) {
-            console.log(user[0])
             const token = generateToken(user[0])
-            console.log(token)
             res.status(201).json({id: ids[0], token})
           } else {
             res.status(400).json({err: "User not found"})
@@ -61,6 +57,20 @@ function register(req, res) {
 
 function login(req, res) {
   // implement user login
+  const login = req.body;
+  if(login.username && login.password) {
+    db("users").where("username", login.username)
+      .then(users => {
+        if(users.length && bcrypt.compareSync(login.password, users[0].password)){
+          const token = generateToken(users[0])
+          res.json({id: users[0].id, token})
+        } else {
+          res.status(400).send("Invalid username or password")
+        }
+      }).catch(err =>  res.status(500).json({err: err}))
+  } else {
+    res.status(400).json({err: "please provide a username and password"})
+  }
 }
 
 function getJokes(req, res) {
