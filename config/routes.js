@@ -74,16 +74,9 @@ function login(req, res) {
 }
 
 function getJokes(req, res) {
-  //not sure how to set headers using this method
-  // const requestOptions = {
-  //   headers: { accept: 'application/json' },
-  // };
-  const token = req.headers.authorization;
   const requestOptions = {
-    headers: {
-      Authorization: token
-    }
-  }
+    headers: { accept: 'application/json' },
+  };
 
   axios
     .get('https://icanhazdadjoke.com/search', requestOptions)

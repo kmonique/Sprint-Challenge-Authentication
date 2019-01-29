@@ -2,10 +2,10 @@
    sessions tracks user movement throughout a system so one can stay "logged in" to access everything they should be granted to see.
 
 2. What does bcrypt do to help us store passwords in a secure manner.
-   bcrypt hashes a password so that it is not stored in plain text.  This increases security by minimizing the changes a hacker can grab or decrypt our data
+   bcrypt (one way function) hashes a password so that it is not stored in plain text.  This increases security by minimizing the changes a hacker can grab or decrypt our data
 
 3. What does bcrypt do to slow down attackers?
    bcrypt salts a password making the time it takes to crack the code to access the data longer
 
 4. What are the three parts of the JSON Web Token?
-   JSON web tokens take a payload (data to be stored), a secret (code to access the data) and options (rules for the token to follow like how long the token will be good for).
+   JSON web tokens take a payload (data to be stored), header (type of token and algorithm), signature (verfication).
